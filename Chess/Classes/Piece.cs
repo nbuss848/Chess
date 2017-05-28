@@ -38,7 +38,7 @@ namespace Chess
             return _color + _type;
         }
 
-        public virtual void Move()
+        public virtual void Move(int x, int y)
         {
             throw new System.NotImplementedException();
         }

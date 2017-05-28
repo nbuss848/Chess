@@ -10,11 +10,6 @@ namespace Chess
         public Rook(string color) :base(color, "R")
         {
         
-        }        
-
-        public override void Move()
-        {
-            base.Move();
-        }
+        }                
     }
 }

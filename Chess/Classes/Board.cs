@@ -31,9 +31,9 @@ namespace Chess.Classes
             _board[x, y] = value;
         }
 
-        internal void Setup(GameType gameType)
+        internal void Setup(GameType Game)
         {
-            if (GameType.Classic == gameType)
+            if (GameType.Classic == Game)
             {
                 for (int j = 0; j < 8; j++)
                 {
@@ -67,6 +67,7 @@ namespace Chess.Classes
                 _board[3, 0] = new Queen("W");
                 _board[3, 7] = new Queen("B");
             }
+
         }
 
         internal void Print()
