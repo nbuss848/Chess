@@ -10,6 +10,10 @@ namespace Chess
         private string _color;
         private string _image;
         private string _type;
+        public static int currX;
+        public static int currY;
+
+        private string Path = Environment.CurrentDirectory + @"..\..\..\";
 
         public string Color
         {
@@ -20,17 +24,11 @@ namespace Chess
         public string Image { get => _image; set => _image = value; }
         public string Type { get => _type; set => _type = value; }
 
-        public Piece(string color)
-        {
-            _color = color;
-            _type = Type;
-            _image = @"C:\Users\Neil\Documents\Visual Studio 2017\Projects\Chess\Chess\" + color + _type + ".png";
-        }
-
+     
         public Piece(string color, string type)
         {
             _color = color;
-            _image = @"C:\Users\Neil\Documents\Visual Studio 2017\Projects\Chess\Chess\"+ color + type +  ".png";
+            _image = Path + color + type +  ".png";
         }
 
         public override string ToString()

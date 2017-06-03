@@ -22,13 +22,11 @@ namespace Chess
         }        
 
         private void Form1_Load(object sender, EventArgs e)
-        {
-            
+        {           
             GameBoard.Setup(GameType.Classic);
             // GameBoard.Print();       
             //DrawBoard();
-            Draw();
-            
+            Draw();            
         }
 
         private void DrawBoard()
@@ -102,14 +100,24 @@ namespace Chess
                 x = Convert.ToInt16(box.Name.Split(' ')[0]);
                 y = Convert.ToInt16( box.Name.Split(' ')[1]);
                 // TODO Move the selected piece to here x,y 
-                Piece selectedPiece = (Piece)board[x, y];
-                selectedPiece.Move(x, y);
+                Piece selectedPiece = (Piece)board[Piece.currX, Piece.currY];
+
+                //selectedPiece.Move(x, y);
+
+                board[Piece.currX, Piece.currY] = null;
+                board[x, y] = selectedPiece;
+
+                this.Controls.Clear();
+                Draw();
             }
             else if (sender is PictureBox)
             {       
                 PictureBox box = (PictureBox)sender;
                 x = Convert.ToInt16(box.Name.Split(' ')[0]);
                 y = Convert.ToInt16(box.Name.Split(' ')[1]);
+                Piece selectedPiece = (Piece)board[x, y];
+                Piece.currX = x;
+                Piece.currY = y;
             }
 
             

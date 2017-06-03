@@ -2,6 +2,8 @@
 {
     public class Pawn : Piece
     {
+       
+
         private bool moved = false;
      
         public Pawn(string color ) : base( color, "P" )
