@@ -108,8 +108,8 @@ namespace Chess
             else if (sender is PictureBox)
             {       
                 PictureBox box = (PictureBox)sender;
-             //   x = box.Name.Split(' ')[0];
-               // y = box.Name.Split(' ')[1];
+                x = Convert.ToInt16(box.Name.Split(' ')[0]);
+                y = Convert.ToInt16(box.Name.Split(' ')[1]);
             }
 
             
