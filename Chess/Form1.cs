@@ -36,8 +36,15 @@ namespace Chess
             List<Panel> Board = GameBoard.Render();
             foreach(Panel Pane in Board)
             {
+                Pane.Click += Pane_Click;
                 this.Controls.Add(Pane);
             }                                                       
+        }
+
+        private void Pane_Click(object sender, EventArgs e)
+        {
+            this.Controls.Clear();
+            Draw();
         }
 
         private void Main_MouseClick(object sender, MouseEventArgs e)
