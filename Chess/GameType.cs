@@ -7,6 +7,6 @@ namespace Chess
 {
     public enum GameType
     {
-        Classic
+        Classic, Random, RacingKings, Horde, ThreeCheck
     }
 }
