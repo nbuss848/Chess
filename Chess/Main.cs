@@ -11,12 +11,12 @@ using System.Windows.Forms;
 
 namespace Chess
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
         Board GameBoard = new Board();
         object[,] board;
 
-        public Form1()
+        public Main()
         {
             InitializeComponent();
         }        
