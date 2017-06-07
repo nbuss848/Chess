@@ -37,7 +37,7 @@
             this.ClientSize = new System.Drawing.Size(734, 711);
             this.Name = "Main";
             this.Text = "Chess";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.Main_Load);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Main_MouseClick);
             this.ResumeLayout(false);
 

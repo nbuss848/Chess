@@ -20,7 +20,7 @@ namespace Chess
             InitializeComponent();
         }        
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Main_Load(object sender, EventArgs e)
         {           
             GameBoard.Setup(GameType.Classic);
             // GameBoard.Print();       

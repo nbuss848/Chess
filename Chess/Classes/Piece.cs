@@ -9,7 +9,6 @@ namespace Chess
     {
         private string _color;
         private string _image;
-        private string _type;
         public static int currX;
         public static int currY;
 
@@ -21,9 +20,10 @@ namespace Chess
             set { _color = value; }
         }
 
+        /// <summary>
+        /// Image Property
+        /// </summary>
         public string Image { get => _image; set => _image = value; }
-        public string Type { get => _type; set => _type = value; }
-
      
         public Piece(string color, string type)
         {
@@ -33,7 +33,7 @@ namespace Chess
 
         public override string ToString()
         {
-            return _color + _type;
+            return _color + "R";
         }
 
         public virtual void Move(int x, int y)
