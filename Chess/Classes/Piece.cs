@@ -9,8 +9,8 @@ namespace Chess
     {
         private string _color;
         private string _image;
-        public static int currX;
-        public static int currY;
+        public static int currX = -1;
+        public static int currY = -1;
 
         private string Path = Environment.CurrentDirectory + @"..\..\..\";
 
@@ -33,7 +33,29 @@ namespace Chess
 
         public override string ToString()
         {
-            return _color + "R";
+            return _color + GetType().Name;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if(this == obj)
+            {
+                return true;
+            }
+            else
+            {
+                Piece thePiece = (Piece)obj;
+                if(thePiece is null)
+                {
+                    return false;
+                }
+                return this.ToString() == thePiece.ToString();
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         public virtual void Move(int x, int y)

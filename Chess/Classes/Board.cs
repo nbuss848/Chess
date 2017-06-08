@@ -149,8 +149,6 @@ namespace Chess.Classes
                     _board[j, 1] = new Pawn("W");
                     _board[j, 6] = new Pawn("B");
                 }
-
-
             }
 
         }
@@ -184,15 +182,12 @@ namespace Chess.Classes
                 Panel box = (Panel)sender;
                 x = Convert.ToInt16(box.Name.Split(' ')[0]);
                 y = Convert.ToInt16(box.Name.Split(' ')[1]);
+
                 // TODO: Move the selected piece to here x, y 
                 Piece selectedPiece = (Piece)GetSquare(Piece.currX, Piece.currY);
 
                 SetSquare(Piece.currX, Piece.currY, null);
                 SetSquare(x, y, selectedPiece);                
-
-                // TODO: Redraw the pieces and squares that were affected
-                //this.Controls.Clear();
-                //Draw();
             }
             else if (sender is PictureBox)
             {
@@ -202,15 +197,24 @@ namespace Chess.Classes
 
                 Piece selectedPiece = (Piece)GetSquare(x, y);               
 
-                /* if(Piece.currX != x && Piece.currY != y)
+                 if(Piece.currX != x || Piece.currY != y)
                  {
-                     // TODO: Take the piece
-                     // Clear the place the user just clicked and move the original X and Y
-                     board[x, y] = null;
-                     board[Piece.currX, Piece.currY] = selectedPiece;
-                     this.Controls.Clear();
-                     Draw();
-                 }*/
+                    // TODO: Take the piece                 
+                    // TODO: See if the next selected piece is a different color ===
+                    if (Piece.currX >= 0 && Piece.currY >= 0)
+                    {
+                        Piece Captureable = (Piece)_board[Piece.currX, Piece.currY];
+                        if (!selectedPiece.Equals(Captureable))
+                        {
+                            _board[Piece.currX, Piece.currY] = null;
+                            _board[x, y] = Captureable;
+
+                            // TODO: Redraw the screen after the piece is captured
+                        }
+                    }
+
+                 }
+
                 // Set the last place the piece or square was clicked
                 Piece.currX = x;
                 Piece.currY = y;
