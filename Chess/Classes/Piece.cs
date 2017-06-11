@@ -33,7 +33,7 @@ namespace Chess
 
         public override string ToString()
         {
-            return _color + GetType().Name;
+            return _color;
         }
 
         public override bool Equals(object obj)

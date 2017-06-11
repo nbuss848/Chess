@@ -34,9 +34,20 @@ namespace Chess
         private void Draw()
         {
             List<Panel> Board = GameBoard.Render();
+
             foreach(Panel Pane in Board)
             {
-                Pane.Click += Pane_Click;
+                if(Pane.Controls.Count == 1)
+                {
+                    // Add the click even to the picture box itself
+                    Pane.Controls[0].Click += Pane_Click;
+                }
+                else
+                {
+                    // Add the click event to the empty square
+                    Pane.Click += Pane_Click;
+                }
+                
                 this.Controls.Add(Pane);
             }                                                       
         }

@@ -65,7 +65,7 @@ namespace Chess.Classes
                     if (_board[i, j] != null)
                     {
                         // We found a piece, let's try to render it
-                        Piece currentPiece = (Piece)GetSquare(i, j);
+                        Piece currentPiece = (Piece)_board[i, j];
 
                         PictureBox picture = new PictureBox();
                         picture.Load(currentPiece.Image);
@@ -184,10 +184,17 @@ namespace Chess.Classes
                 y = Convert.ToInt16(box.Name.Split(' ')[1]);
 
                 // TODO: Move the selected piece to here x, y 
-                Piece selectedPiece = (Piece)GetSquare(Piece.currX, Piece.currY);
+                Piece selectedPiece = (Piece)_board[Piece.currX, Piece.currY];
 
-                SetSquare(Piece.currX, Piece.currY, null);
-                SetSquare(x, y, selectedPiece);                
+                if(selectedPiece == null)
+                {
+                    return;
+                }
+
+                _board[Piece.currX, Piece.currY] = null;
+                _board[x, y] = selectedPiece;
+                x = -1;
+                y = -1;
             }
             else if (sender is PictureBox)
             {
@@ -195,19 +202,29 @@ namespace Chess.Classes
                 x = Convert.ToInt16(box.Name.Split(' ')[0]);
                 y = Convert.ToInt16(box.Name.Split(' ')[1]);
 
-                Piece selectedPiece = (Piece)GetSquare(x, y);               
+                Piece selectedPiece = (Piece)_board[x, y];               
 
                  if(Piece.currX != x || Piece.currY != y)
                  {
                     // TODO: Take the piece                 
                     // TODO: See if the next selected piece is a different color ===
-                    if (Piece.currX >= 0 && Piece.currY >= 0)
+                    if (Piece.currX >= 0 && Piece.currY >= 0 && selectedPiece != null)
                     {
                         Piece Captureable = (Piece)_board[Piece.currX, Piece.currY];
+
                         if (!selectedPiece.Equals(Captureable))
                         {
-                            _board[Piece.currX, Piece.currY] = null;
-                            _board[x, y] = Captureable;
+                            if (Captureable == null)
+                            {
+
+                            }
+                            else
+                            {
+                                _board[Piece.currX, Piece.currY] = null;
+                                _board[x, y] = Captureable;
+                                x = -1;
+                                y = -1;
+                            }
 
                             // TODO: Redraw the screen after the piece is captured
                         }
