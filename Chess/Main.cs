@@ -24,7 +24,7 @@ namespace Chess
         {           
             GameBoard.Setup(GameType.Classic);
             // GameBoard.Print();       
-            //DrawBoard();
+            
             Draw();            
         }      
 
