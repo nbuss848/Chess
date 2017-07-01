@@ -16,7 +16,7 @@ namespace Chess.Classes
         /// <param name="color">The color of the rook</param>
         public Rook(string color):base(color, "R")
         {
-        
+            this.Value = 5;
         }                
     }
 }

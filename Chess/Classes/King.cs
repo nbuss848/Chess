@@ -13,7 +13,7 @@ namespace Chess.Classes
     {
         public King(string color) : base(color, "K")
         {
-
+            this.Value = Int32.MaxValue;
         }
     }
 }

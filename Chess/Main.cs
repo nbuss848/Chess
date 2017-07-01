@@ -22,7 +22,7 @@ namespace Chess
 
         private void Main_Load(object sender, EventArgs e)
         {           
-            GameBoard.Setup(GameType.Classic);
+            GameBoard.Setup(GameType.Random);
             // GameBoard.Print();       
             
             Draw();            

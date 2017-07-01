@@ -10,7 +10,7 @@ namespace Chess.Classes
     {        
         public Knight(string color) : base(color, "N")
         {
-         
+            this.Value = 3;
         }
     }
 }

@@ -149,8 +149,27 @@ namespace Chess.Classes
                     _board[j, 1] = new Pawn("W");
                     _board[j, 6] = new Pawn("B");
                 }
+
+                int[] ranks = new int[8] { 0, 1, 2, 3, 4, 5, 6, 7 };
+
+                Queue<Piece> WhitesPieces = Piece.GetPieces("W");
+                Queue<Piece> BlackPieces = Piece.GetPieces("B");
+
+                Shuffle(ref ranks);
+
+                foreach(int i in ranks)
+                {
+                    _board[i, 0] = WhitesPieces.Dequeue();
+                    _board[i, 7] = BlackPieces.Dequeue();
+                }
             }
 
+        }
+
+        private void Shuffle(ref int [] ranks)
+        {
+            Random rnd = new Random();
+            ranks = ranks.OrderBy(x => rnd.Next()).ToArray();
         }
 
         /// <summary>
