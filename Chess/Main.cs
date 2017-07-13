@@ -23,9 +23,10 @@ namespace Chess
         private void Main_Load(object sender, EventArgs e)
         {           
             GameBoard.Setup(GameType.Random);
-            // GameBoard.Print();       
-            
-            Draw();            
+            // GameBoard.Print();                   
+            Draw();
+            // only draw cords once
+            DrawCords();
         }      
 
         /// <summary>
@@ -49,7 +50,16 @@ namespace Chess
                 }
                 
                 this.Controls.Add(Pane);
-            }                                                       
+            }            
+        }
+
+        private void DrawCords()
+        {
+            List<Control> controls = GameBoard.DrawCords();
+            foreach (Control item in controls)
+            {
+                this.Controls.Add(item);
+            }
         }
 
         private void Pane_Click(object sender, EventArgs e)
