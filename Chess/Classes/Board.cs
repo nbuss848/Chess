@@ -31,6 +31,31 @@ namespace Chess.Classes
             _board = value;
         }
 
+        internal List<Control> DrawCords()
+        {
+            char []xRank = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
+
+            List<Control> Labels = new List<Control>();
+            for(int i = 0; i<8;i++)
+            {
+                Label label = new Label();
+                Point fontSize = new Point(16);
+               // label.Size = new Size(fontSize); 
+                label.Location = new Point(25, i * 75 + 82);
+                int num = i + 1;
+                label.Text = num.ToString();
+                Labels.Add(label);
+
+                label = new Label();                
+                // label.Size = new Size(fontSize); 
+                label.Location = new Point(i * 75 + 82, 25);
+                label.Text = xRank[i].ToString();
+                Labels.Add(label);
+            }
+
+            return Labels;
+        }
+
         public void SetSquare(int x, int y, object value)
         {
             _board[x, y] = value;
@@ -149,8 +174,31 @@ namespace Chess.Classes
                     _board[j, 1] = new Pawn("W");
                     _board[j, 6] = new Pawn("B");
                 }
+
+                int[] ranks = new int[8] { 0, 1, 2, 3, 4, 5, 6, 7 };
+
+                Queue<Piece> WhitesPieces = Piece.GetPieces("W");
+                Queue<Piece> BlackPieces = Piece.GetPieces("B");
+
+                Shuffle(ref ranks);
+
+                foreach(int i in ranks)
+                {
+                    _board[i, 0] = WhitesPieces.Dequeue();
+                    _board[i, 7] = BlackPieces.Dequeue();
+                }
             }
 
+        }
+
+        /// <summary>
+        /// Sorts the an array randomly
+        /// </summary>
+        /// <param name="ranks"></param>
+        private void Shuffle(ref int [] ranks)
+        {
+            Random rnd = new Random();
+            ranks = ranks.OrderBy(x => rnd.Next()).ToArray();
         }
 
         /// <summary>
@@ -165,7 +213,6 @@ namespace Chess.Classes
                     if (_board[i, j] != null)
                     {
                         Console.Write(_board[i, j].ToString());
-
                     }
                 }
                 Console.WriteLine();

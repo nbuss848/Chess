@@ -6,7 +6,7 @@
      
         public Pawn(string color ) : base( color, "P" )
         {
-           
+            this.Value = 1;
         }
 
         public override void Move(int x, int y)

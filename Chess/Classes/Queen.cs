@@ -10,6 +10,7 @@ namespace Chess.Classes
     {
         public Queen(string color) : base(color, "Q")
         {
+            this.Value = 9;
         }
     }
 }

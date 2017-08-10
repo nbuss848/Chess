@@ -10,6 +10,7 @@ namespace Chess.Classes
     {
         public Bishop(string color) : base(color, "B")
         {
+            this.Value = 3;
         }
     }
 }
