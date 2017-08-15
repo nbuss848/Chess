@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FontAwesomeIcons">
+      <HintPath>..\..\..\..\GitHub\FontAwesome-WindowsForms\FontAwesomeIcons\bin\Debug\FontAwesomeIcons.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

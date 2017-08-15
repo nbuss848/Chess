@@ -18,7 +18,5 @@ namespace Chess.Classes
 
         // TODO: A player moves pieces on a board and takes turns with another player
         // A player can have a different rating for each gametype
-
-
     }
 }

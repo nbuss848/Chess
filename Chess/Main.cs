@@ -22,7 +22,7 @@ namespace Chess
 
         private void Main_Load(object sender, EventArgs e)
         {           
-            GameBoard.Setup(GameType.Random);
+            GameBoard.Setup(GameType.Classic);
             // GameBoard.Print();                   
             Draw();
             // only draw cords once
@@ -72,5 +72,37 @@ namespace Chess
         {
             this.Refresh();
         }
+
+        private void Main_KeyDown(object sender, KeyEventArgs e)
+        {
+          
+        }
+
+        private void Main_MouseDown(object sender, MouseEventArgs e)
+        {
+            //lbCords.Text = String.Format("X: {0} Y: {1}", e.X, e.Y);
+        }
+
+        #region Move Events
+        private void FirstMove_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CurrentMove_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NextAvailableMove_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LastAvailableMove_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
     }
 }

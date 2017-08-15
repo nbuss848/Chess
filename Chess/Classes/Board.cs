@@ -49,6 +49,7 @@ namespace Chess.Classes
                 label = new Label();                
                 // label.Size = new Size(fontSize); 
                 label.Location = new Point(i * 75 + 82, 25);
+                label.Width = 50;
                 label.Text = xRank[i].ToString();
                 Labels.Add(label);
             }
