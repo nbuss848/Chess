@@ -1,12 +1,6 @@
 ﻿using Chess.Classes;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Chess
@@ -23,7 +17,10 @@ namespace Chess
         private void Main_Load(object sender, EventArgs e)
         {           
             GameBoard.Setup(GameType.Classic);
-            // GameBoard.Print();                   
+            // GameBoard.Print();                
+            Classes.Players.AI computer = new Classes.Players.AI(GameBoard, "W");
+            computer.Move();
+
             Draw();
             // only draw cords once
             DrawCords();
@@ -34,7 +31,7 @@ namespace Chess
         /// </summary>
         private void Draw()
         {
-            List<Panel> Board = GameBoard.Render();
+            List<Panel> Board = GameBoard.Draw();
 
             foreach(Panel Pane in Board)
             {

@@ -55,6 +55,7 @@
     <Compile Include="Classes\Pawn.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Queen.cs" />
+    <Compile Include="Classes\Players\AI.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -18,7 +18,7 @@ namespace Chess.Classes
         }
 
         /// <summary>
-        /// Gets the state of the entire board
+        /// Gets the state of the entire board. Might be useful to the UI class        
         /// </summary>
         /// <returns></returns>
         public object[,] GetBoard()
@@ -26,6 +26,10 @@ namespace Chess.Classes
             return _board;
         }
 
+        /// <summary>
+        /// Set the entire board to something. For example you might want to use this for the FEN or PNGS
+        /// </summary>
+        /// <param name="value"></param>
         public void SetBoard(object[,] value)
         {
             _board = value;
@@ -34,27 +38,43 @@ namespace Chess.Classes
         internal List<Control> DrawCords()
         {
             char []xRank = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
+            int offset = 82;
+            int width = 75;
 
             List<Control> Labels = new List<Control>();
-            for(int i = 0; i<8;i++)
+            for (int i = 0; i < 8; i++)
             {
-                Label label = new Label();
-                Point fontSize = new Point(16);
-               // label.Size = new Size(fontSize); 
-                label.Location = new Point(25, i * 75 + 82);
-                int num = i + 1;
-                label.Text = num.ToString();
+                int x = 25;
+                int y = i * width + offset;
+
+                Label label = BuildLabel(x, y, (i + 1).ToString());
                 Labels.Add(label);
 
-                label = new Label();                
-                // label.Size = new Size(fontSize); 
-                label.Location = new Point(i * 75 + 82, 25);
-                label.Width = 50;
-                label.Text = xRank[i].ToString();
+                // TODO: think about the best way to describe x and y here
+                // We flip x and y here so that we draw the xRank across the top of the UI                              
+                label = BuildLabel(y, x, xRank[i].ToString());
                 Labels.Add(label);
             }
 
             return Labels;
+        }
+
+        /// <summary>
+        /// Build the a label to display the chess board cordinates to the user.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        private Label BuildLabel(int x, int y, string text)
+        {
+            Label label = new Label();
+            Point fontSize = new Point(16);
+            label.Location = new Point(x, y);
+            label.Text = text;
+            label.Width = 50;
+
+            return label;
         }
 
         public void SetSquare(int x, int y, object value)
@@ -62,7 +82,7 @@ namespace Chess.Classes
             _board[x, y] = value;
         }
 
-        public List<Panel> Render()
+        public List<Panel> Draw()
         {
             List<Panel> Board = new List<Panel>();
 
@@ -138,8 +158,8 @@ namespace Chess.Classes
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    _board[j, 1] = new Pawn("W");
-                    _board[j, 6] = new Pawn("B");
+                    _board[j, 1] = new Pawn("W", j, 1);
+                    _board[j, 6] = new Pawn("B", j, 1);
                 }
 
                 // Build Rooks
@@ -172,8 +192,8 @@ namespace Chess.Classes
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    _board[j, 1] = new Pawn("W");
-                    _board[j, 6] = new Pawn("B");
+                    _board[j, 1] = new Pawn("W", j, 1);
+                    _board[j, 6] = new Pawn("B", j, 6);
                 }
 
                 int[] ranks = new int[8] { 0, 1, 2, 3, 4, 5, 6, 7 };
@@ -193,7 +213,7 @@ namespace Chess.Classes
         }
 
         /// <summary>
-        /// Sorts the an array randomly
+        /// Sorts an array randomly
         /// </summary>
         /// <param name="ranks"></param>
         private void Shuffle(ref int [] ranks)

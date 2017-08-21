@@ -12,7 +12,7 @@ namespace Chess
         private string _image;
         public static int currX = -1;
         public static int currY = -1;
-        private int _value;
+        private int _value;        
 
         private string Path = Environment.CurrentDirectory + @"..\..\..\";
 
@@ -28,12 +28,21 @@ namespace Chess
         public string Image { get => _image; set => _image = value; }
         public int Value { get => _value; set => _value = value; }
 
+        /// <summary>
+        /// Default contructor for a piece
+        /// </summary>
+        /// <param name="color"></param>
+        /// <param name="type"></param>
         public Piece(string color, string type)
         {
             _color = color;
             _image = Path + color + type +  ".png";
         }
 
+        /// <summary>
+        /// Returns Color of the Piece as a defining characteristic
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return _color;
@@ -75,9 +84,19 @@ namespace Chess
             return base.GetHashCode();
         }
 
-        public virtual void Move(int x, int y)
+        public virtual List<int[,]> GetMoves(int x, int y)
         {
             throw new System.NotImplementedException();
         }
+
+        public virtual List<int[,]> GetMoves()
+        {
+            throw new System.NotFiniteNumberException();
+        }
+
+        public virtual void Move(int x, int y)
+        {
+            
+        }       
     }
 }

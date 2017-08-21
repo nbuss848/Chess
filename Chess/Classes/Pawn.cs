@@ -1,35 +1,77 @@
-﻿namespace Chess.Classes
+﻿using System.Collections.Generic;
+
+namespace Chess.Classes
 {
     public class Pawn : Piece
     {       
-        private bool moved = false;
+        private bool _moved = false;
+        private int _x;
+        private int _y;
      
         public Pawn(string color ) : base( color, "P" )
         {
-            this.Value = 1;
+            Value = 1;
         }
 
-        public override void Move(int x, int y)
+        public Pawn(string color, int X, int Y) : base(color,"P")
+        {
+            Value = 1;
+            this.X = X;
+            this.Y = Y;
+        }
+
+        public int X { get => _x; set => _x = value; }
+        public int Y { get => _y; set => _y = value; }
+
+        public override List<int[,]> GetMoves()
         {
             // Pawn can move forward only and capture diagonally
+            List<int[,]> moves = new List<int[,]>();
+            int[,] cord = new int[2,2];
 
+            if (_moved == true)
+            {
+                // TODO can move one or two spaces depending on color;
+                if (Color == "W")
+                {
+                    cord[0, 0] = _x;
+                    cord[0, 1] = _y + 1;
+                    moves.Add(cord);          
+                }
+                else if (Color == "B")
+                {
+                    cord[0, 0] = _x;
+                    cord[0, 1] = _y - 1;
 
-            /*  if(moved == true)
-              {
-                  // TODO can move one or two spaces depending on color;
-                  if(Color == "W")
-                  {
-                      return [x + 1, y];
-                  }
-                  else if( Color == "B")
-                  {
-                      return [x - 1, y];
-                  }
-              }
-              moved = true;
+                    moves.Add(cord);      
+                }
+            }
+            else
+            {
+                if (Color == "W")
+                {                    
+                    cord[0, 0] = _x;
+                    cord[0, 1] = _y + 1;
+                    moves.Add(cord);
 
-              return [x, y];*/
-            base.Move(x, y);
+                    cord[0, 0] = _x;
+                    cord[0, 1] = _y + 2;     
+                    moves.Add(cord);
+                }
+                else if (Color == "B")
+                {
+                    cord[0, 0] = _x;
+                    cord[0, 1] = _y - 1;
+                    moves.Add(cord);
+
+                    cord[0, 0] = _x;
+                    cord[0, 1] = _y - 2;
+                    moves.Add(cord);
+                }
+            }
+            _moved = true;
+
+            return moves;
         }
 
         public override string ToString()
