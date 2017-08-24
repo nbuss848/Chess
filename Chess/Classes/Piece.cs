@@ -95,8 +95,11 @@ namespace Chess
         }
 
         public virtual void Move(int x, int y)
-        {
-            
+        {            
+            //_board[Piece.currX, Piece.currY] = null;
+            //_board[x, y] = selectedPiece;
+            //x = -1;
+            //y = -1;
         }       
     }
 }

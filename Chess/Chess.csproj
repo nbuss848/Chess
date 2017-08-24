@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Classes\Bishop.cs" />
     <Compile Include="Classes\Board.cs" />
+    <Compile Include="Classes\GameState.cs" />
     <Compile Include="Classes\King.cs" />
     <Compile Include="Classes\Knight.cs" />
     <Compile Include="Classes\Pawn.cs" />

@@ -26,6 +26,22 @@ namespace Chess.Classes
             return _board;
         }
 
+        public string Move(int preX, int preY, int destX, int destY)
+        {
+            if(_board[preX,preY] == null)
+            {
+                // return null;
+                throw new NotImplementedException();
+            }
+
+            Piece selectedPiece = (Piece)_board[preX, preY];
+
+            _board[preX, preY] = null;
+            _board[destX, destY] = selectedPiece;
+
+            return selectedPiece.Color;
+        }
+
         /// <summary>
         /// Set the entire board to something. For example you might want to use this for the FEN or PNGS
         /// </summary>
@@ -252,15 +268,17 @@ namespace Chess.Classes
                 y = Convert.ToInt16(box.Name.Split(' ')[1]);
 
                 // TODO: Move the selected piece to here x, y 
+                // only if valid move
                 Piece selectedPiece = (Piece)_board[Piece.currX, Piece.currY];
+                
 
                 if(selectedPiece == null)
                 {
                     return;
                 }
 
-                _board[Piece.currX, Piece.currY] = null;
-                _board[x, y] = selectedPiece;
+                Move(Piece.currX, Piece.currY, x, y);
+
                 x = -1;
                 y = -1;
             }

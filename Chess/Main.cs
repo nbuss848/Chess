@@ -18,9 +18,6 @@ namespace Chess
         {           
             GameBoard.Setup(GameType.Classic);
             // GameBoard.Print();                
-            Classes.Players.AI computer = new Classes.Players.AI(GameBoard, "W");
-            computer.Move();
-
             Draw();
             // only draw cords once
             DrawCords();
@@ -37,7 +34,7 @@ namespace Chess
             {
                 if(Pane.Controls.Count == 1)
                 {
-                    // Add the click even to the picture box itself
+                    // Add the click event to the picture box itself
                     Pane.Controls[0].Click += Pane_Click;
                 }
                 else
@@ -61,6 +58,8 @@ namespace Chess
 
         private void Pane_Click(object sender, EventArgs e)
         {
+            // TODO Get whos turn it is
+            // ask the gamestate to return whos turn it is
             this.Controls.Clear();
             Draw();
         }

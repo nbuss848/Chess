@@ -24,6 +24,8 @@ namespace Chess.Classes.Players
             Evaluate(GameBoard, _color);
         }
 
+      
+
         private void Evaluate(object[,] gameBoard, string color)
         {
             foreach(Piece piece in gameBoard.OfType<Piece>())

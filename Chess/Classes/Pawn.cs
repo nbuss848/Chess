@@ -7,7 +7,7 @@ namespace Chess.Classes
         private bool _moved = false;
         private int _x;
         private int _y;
-     
+        //private List
         public Pawn(string color ) : base( color, "P" )
         {
             Value = 1;
@@ -73,6 +73,22 @@ namespace Chess.Classes
 
             return moves;
         }
+
+        public bool ValidMove(int xDestination, int yDestination)
+        {
+            bool valid = false;
+            List<int[,]> moves = GetMoves();
+            foreach (int[,] item in moves)
+            {
+                if(item[0,0] == xDestination && item[0,1] == yDestination)
+                {
+                    valid = true;
+                    break;
+                }
+            }
+
+            return valid;
+        }       
 
         public override string ToString()
         {
