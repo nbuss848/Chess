@@ -109,16 +109,16 @@ namespace Chess.Classes
                     Panel pane = new Panel();
                     if (i % 2 == 0)
                     {
-                        pane.Location = new System.Drawing.Point(i * 75 + 50, j * 75 + 50);
-                        pane.Size = new System.Drawing.Size(75, 75);
+                        pane.Location = new Point(i * 75 + 50, j * 75 + 50);
+                        pane.Size = new Size(75, 75);
                         pane.BackColor = j % 2 == 0 ? Color.Green : Color.White;
                         pane.Name = i + " " + j;
                         pane.Click += Pane_Click;
                     }
                     else
                     {
-                        pane.Location = new System.Drawing.Point(i * 75 + 50, j * 75 + 50);
-                        pane.Size = new System.Drawing.Size(75, 75);
+                        pane.Location = new Point(i * 75 + 50, j * 75 + 50);
+                        pane.Size = new Size(75, 75);
                         pane.BackColor = j % 2 == 0 ? Color.White : Color.Green;
                         pane.Name = i + " " + j;
                         pane.Click += Pane_Click;
@@ -159,9 +159,21 @@ namespace Chess.Classes
         /// <param name="x">Xcord</param>
         /// <param name="y">Ycord</param>
         /// <returns>A piece or a null</returns>
-        public object GetSquare(int x, int y)
+        public Control GetSquareControl(int x, int y)
         {
-            return _board[x, y];
+            Piece currentPiece = (Piece)_board[x, y];
+
+            PictureBox picture = new PictureBox();
+            picture.Load(currentPiece.Image);            
+            picture.Width = 75;
+            picture.Height = 75;
+            picture.SizeMode = PictureBoxSizeMode.StretchImage;
+            picture.BackColor = Color.Transparent;
+            picture.Click += Pane_Click;
+            picture.Name = x + " " + y;
+
+            return picture;
+            //return _board[x, y];
         }
 
         /// <summary>

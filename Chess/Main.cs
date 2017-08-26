@@ -8,6 +8,7 @@ namespace Chess
     public partial class Main : Form
     {
         Board GameBoard = new Board();
+        private List<Panel> paneHistory =  new List<Panel>();
 
         public Main()
         {
@@ -60,8 +61,50 @@ namespace Chess
         {
             // TODO Get whos turn it is
             // ask the gamestate to return whos turn it is
-            this.Controls.Clear();
-            Draw();
+           // this.Controls.Clear();
+           // Draw();            
+            //List<Panel> board = GameBoard.Draw();
+
+            Control pane = (Control)sender;
+            string id = pane.Name;
+            string[] cords = id.Split(' ');
+            int x = Convert.ToInt32(cords[0]);
+            int y = Convert.ToInt32(cords[1]);
+
+            foreach (Control thePane in this.Controls)
+            {
+                if (thePane is Panel)
+                {
+                    if (thePane.Name == id)
+                    {
+                        Panel temp = (Panel)thePane;
+                        paneHistory.Add(temp);
+
+                        break;
+                    }
+                }
+            }            
+
+            if(paneHistory.Count == 2)
+            {
+                UpdateBoard(x, y);
+            }
+        }
+
+        private void UpdateBoard(int x, int y)
+        {
+            Panel thePane = paneHistory[0];
+            thePane.Controls.Clear();
+            thePane.Refresh();
+
+            paneHistory[1].Controls.Clear();
+            // add updated square according to the board
+            paneHistory[1].Controls.Add(GameBoard.GetSquareControl(x, y));
+            paneHistory[1].Controls[0].Click += Pane_Click;
+
+            paneHistory[1].Refresh();
+
+            paneHistory.Clear();
         }
 
         private void Main_MouseClick(object sender, MouseEventArgs e)
