@@ -61,10 +61,6 @@ namespace Chess
         {
             // TODO Get whos turn it is
             // ask the gamestate to return whos turn it is
-           // this.Controls.Clear();
-           // Draw();            
-            //List<Panel> board = GameBoard.Draw();
-
             Control pane = (Control)sender;
             string id = pane.Name;
             string[] cords = id.Split(' ');
@@ -85,12 +81,25 @@ namespace Chess
                 }
             }            
 
-            if(paneHistory.Count == 2)
+            if(paneHistory.Count == 2) // % 2
             {
                 UpdateBoard(x, y);
             }
+            else if(paneHistory.Count == 1)
+            {
+                // This means there is no piece here so clear history, alternatively we could remove it from the history instead
+                if(paneHistory[0].Controls.Count == 0)
+                {
+                    paneHistory.Clear();
+                }
+            }
         }
 
+        /// <summary>
+        /// Update the squares we need to refresh
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         private void UpdateBoard(int x, int y)
         {
             Panel thePane = paneHistory[0];
