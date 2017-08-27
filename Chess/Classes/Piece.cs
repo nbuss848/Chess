@@ -74,7 +74,7 @@ namespace Chess
             pieces.Enqueue(new Bishop(Color));
             pieces.Enqueue(new Knight(Color));
             pieces.Enqueue(new Knight(Color));
-            pieces.Enqueue(new Queen(Color));
+            pieces.Enqueue(new Queen(Color,0,0));
             pieces.Enqueue(new King(Color));
             return pieces;
         }

@@ -213,8 +213,8 @@ namespace Chess.Classes
                 _board[4, 7] = new King("B");
 
                 // Build Queens
-                _board[3, 0] = new Queen("W");
-                _board[3, 7] = new Queen("B");
+                _board[3, 0] = new Queen("W",3,0);
+                _board[3, 7] = new Queen("B",3,7);
             }
             else if (GameType.Random == Game)
             {

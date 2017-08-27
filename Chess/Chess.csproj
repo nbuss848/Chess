@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FontAwesomeIcons">
-      <HintPath>..\..\..\..\GitHub\FontAwesome-WindowsForms\FontAwesomeIcons\bin\Debug\FontAwesomeIcons.dll</HintPath>
+      <HintPath>..\..\FontAwesome-WindowsForms\FontAwesomeIcons\bin\Debug\FontAwesomeIcons.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -81,6 +81,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="chess.cd" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
