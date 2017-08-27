@@ -1,6 +1,7 @@
 ﻿using Chess.Classes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Chess
@@ -13,10 +14,43 @@ namespace Chess
         public Main()
         {
             InitializeComponent();
-        }        
+        }
+
+        private void Visualize(List<int[,]> moves)
+        {
+            foreach (int[,] i in moves)
+            {
+                int x = i[0, 0];
+                int y = i[0, 1];
+                var pane = from box in this.Controls.OfType<Panel>()
+                           where box.Name == String.Format("{0} {1}", x, y)
+                           select box;
+
+                foreach (var box in pane)
+                {
+                    Panel p = box;
+                    p.BackColor = System.Drawing.Color.LightSkyBlue;
+                    p.Refresh();
+                }
+            }
+        }
 
         private void Main_Load(object sender, EventArgs e)
-        {           
+        {
+            object [,] board = GameBoard.GetBoard();
+            Queen queen = new Queen("W", 2, 2);
+            board[2, 2] = queen;
+
+            List<int[,]> moves = queen.GetMoves();
+
+            Draw();
+            DrawCords();
+
+            // Visualize Moves
+            Visualize(moves);
+           
+            return;
+
             GameBoard.Setup(GameType.Classic);
             // GameBoard.Print();                
             Draw();

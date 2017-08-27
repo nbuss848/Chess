@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Chess.Classes
 {
-    class Board
+    public class Board
     {
         private object[,] _board;
 
@@ -180,7 +180,7 @@ namespace Chess.Classes
         /// Sets up the gameboard with the desired game type
         /// </summary>
         /// <param name="Game"></param>
-        internal void Setup(GameType Game)
+        public void Setup(GameType Game)
         {
             if (GameType.Classic == Game)
             {
@@ -248,6 +248,11 @@ namespace Chess.Classes
         {
             Random rnd = new Random();
             ranks = ranks.OrderBy(x => rnd.Next()).ToArray();
+        }
+
+        public void Propagate(Piece PieceType)
+        {
+
         }
 
         /// <summary>
