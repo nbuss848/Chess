@@ -281,6 +281,11 @@ namespace Chess.Classes
 
                 // TODO: Move the selected piece to here x, y 
                 // only if valid move
+                if(Piece.currX == -1 || Piece.currY == -1)
+                {                   
+                    return;
+                }
+
                 Piece selectedPiece = (Piece)_board[Piece.currX, Piece.currY];
                 
 

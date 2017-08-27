@@ -42,7 +42,6 @@ namespace Chess.Classes
                 {
                     cord[0, 0] = _x;
                     cord[0, 1] = _y - 1;
-
                     moves.Add(cord);      
                 }
             }
