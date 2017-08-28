@@ -12,7 +12,10 @@ namespace Chess
         private string _image;
         public static int currX = -1;
         public static int currY = -1;
-        private int _value;        
+        private int _value;
+        private int _x;
+        private int _y;
+        public enum Direction { Horizontal, Vertical, Diagonal, L };
 
         private string Path = Environment.CurrentDirectory + @"..\..\..\";
 
@@ -27,6 +30,8 @@ namespace Chess
         /// </summary>
         public string Image { get => _image; set => _image = value; }
         public int Value { get => _value; set => _value = value; }
+        public int X { get => _x; set => _x = value; }
+        public int Y { get => _y; set => _y = value; }
 
         /// <summary>
         /// Default contructor for a piece
@@ -37,6 +42,14 @@ namespace Chess
         {
             _color = color;
             _image = Path + color + type +  ".png";
+        }
+
+        public Piece(string color, string type, int X, int Y)
+        {
+            _color = color;
+            _image = Path + color + type + ".png";
+            this.X = X;
+            this.Y = Y;
         }
 
         /// <summary>
@@ -74,7 +87,7 @@ namespace Chess
             pieces.Enqueue(new Bishop(Color));
             pieces.Enqueue(new Knight(Color));
             pieces.Enqueue(new Knight(Color));
-            pieces.Enqueue(new Queen(Color,0,0));
+            pieces.Enqueue(new Queen(Color));
             pieces.Enqueue(new King(Color));
             return pieces;
         }
@@ -87,6 +100,101 @@ namespace Chess
         public virtual List<int[,]> GetMoves(int x, int y)
         {
             throw new System.NotImplementedException();
+        }
+
+        public List<int[,]> Moves(Direction moveType)
+        {
+            List<int[,]> moves = new List<int[,]>();
+            int[,] move = new int[1, 2];
+
+            switch (moveType)
+            {
+                case Direction.Horizontal:                    
+
+                    // GO LEFT
+                    for (int i = Y - 1; i >= 0; i--)
+                    {
+                        move = new int[1, 2];
+                        move[0, 0] = X;
+                        move[0, 1] = i;
+                        moves.Add(move);
+                    }
+
+                    // GO RIGHT
+                    for (int i = Y + 1; i < 8; i++)
+                    {
+                        move = new int[1, 2];
+                        move[0, 0] = X;
+                        move[0, 1] = i;
+                        moves.Add(move);
+                    }
+
+                    break;
+                case Direction.Vertical:
+                    // GO DOWN
+                    for (int i = X + 1; i < 8; i++)
+                    {
+                        move = new int[1, 2];
+                        move[0, 0] = i;
+                        move[0, 1] = Y;
+                        moves.Add(move);
+                    }
+
+                    // GO UP
+                    for (int i = X - 1; i >= 0; i--)
+                    {
+                        move = new int[1, 2];
+                        move[0, 0] = i;
+                        move[0, 1] = Y;
+                        moves.Add(move);
+                    }
+                    break;
+                case Direction.Diagonal:
+                    // Calculate how many times we have to go to the right
+                    int RightSpace = 7 - X;
+                    int LeftSpace = X;
+
+                    // GO DOWN AND RIGHT
+                    for (int i = 1; i <= RightSpace; i++)
+                    {
+                        move = new int[1, 2];
+                        move[0, 0] = X + i;
+                        move[0, 1] = Y + i;
+                        moves.Add(move);
+                    }
+
+                    // GO UP AND Right
+                    for (int i = 1; i <= RightSpace; i++)
+                    {
+                        move = new int[1, 2];
+                        move[0, 0] = X + i;
+                        move[0, 1] = Y - i;
+                        moves.Add(move);
+                    }
+
+                    // GO DOWN AND LEFT
+                    for (int i = 1; i <= LeftSpace; i++)
+                    {
+                        move = new int[1, 2];
+                        move[0, 0] = X - i;
+                        move[0, 1] = Y + i;
+                        moves.Add(move);
+                    }
+
+                    // GO UP AND LEFT
+                    for (int i = 1; i <= LeftSpace; i++)
+                    {
+                        move = new int[1, 2];
+                        move[0, 0] = X - i;
+                        move[0, 1] = Y - i;
+                        moves.Add(move);
+                    }
+                    break;
+                default: // no default
+                    break;
+            }
+
+            return moves;
         }
 
         public virtual List<int[,]> GetMoves()

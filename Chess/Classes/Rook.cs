@@ -17,6 +17,28 @@ namespace Chess.Classes
         public Rook(string color):base(color, "R")
         {
             this.Value = 5;
-        }                
+        }
+
+        public Rook(string color, int X, int Y) : base(color, "R",X,Y)
+        {
+            this.Value = 5;
+        }
+
+        public override List<int[,]> GetMoves()
+        {
+            List<int[,]> moves = new List<int[,]>();
+
+            foreach (var item in base.Moves(Direction.Vertical))
+            {
+                moves.Add(item);
+            }
+
+            foreach (var item in base.Moves(Direction.Horizontal))
+            {
+                moves.Add(item);
+            }
+
+            return moves;
+        }
     }
 }
