@@ -310,7 +310,7 @@ namespace Chess.Classes
             }
             else if (sender is PictureBox)
             {
-                PictureBox box = (PictureBox)sender;
+                PictureBox box = sender as PictureBox;
                 x = Convert.ToInt16(box.Name.Split(' ')[0]);
                 y = Convert.ToInt16(box.Name.Split(' ')[1]);
 

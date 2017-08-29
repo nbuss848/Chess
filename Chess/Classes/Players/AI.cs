@@ -51,7 +51,7 @@ namespace Chess.Classes.Players
                             if (gameBoard[cords[0, 0], cords[0, 1]] is Piece)
                             {
                                 // only valid when pieces are not equal
-                                Piece destPiece = (Piece)gameBoard[cords[0, 0], cords[0, 1]];
+                                Piece destPiece = gameBoard[cords[0, 0], cords[0, 1]] as Piece;
 
                                 if (!piece.Equals(destPiece))
                                 {

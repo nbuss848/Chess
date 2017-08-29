@@ -40,11 +40,18 @@ namespace Chess
         private void Test()
         {
             object[,] board = GameBoard.GetBoard();
-            Knight queen = new Knight("W", 2, 2);
+            Bishop queen = new Bishop("W", 2, 2);
             board[2, 2] = queen;
 
-            List<int[,]> moves = queen.GetMoves();
+            Pawn pawn = new Pawn("B", 2, 2);
+            board[4, 4] = pawn;
 
+            pawn = new Pawn("B", 1, 1);
+            board[1, 1] = pawn;
+
+
+            // List<int[,]> moves = //queen.GetMoves(); queen.Moves(Piece.Direction.Diagonal, GameBoard);
+            List<int[,]> moves = queen.Moves(Piece.Direction.Diagonal, GameBoard);
             Draw();
             DrawCords();
 
@@ -54,6 +61,9 @@ namespace Chess
 
         private void Main_Load(object sender, EventArgs e)
         {
+            Test();
+            return;
+
             GameBoard.Setup(GameType.Classic);
             // GameBoard.Print();                
             Draw();
