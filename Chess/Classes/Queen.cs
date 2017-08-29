@@ -7,10 +7,7 @@ using System.Threading.Tasks;
 namespace Chess.Classes
 {
     class Queen : Piece
-    {
-        private int _x;
-        private int _y;
-
+    { 
         public Queen(string color) : base(color, "Q")
         {
             this.Value = 9;
@@ -46,8 +43,6 @@ namespace Chess.Classes
         {
             List<int[,]> moves = new List<int[,]>();
             int[,] move = new int[1, 2];
-            // Propagate upwards
-            // start at x y and work upwards
 
             foreach (var item in base.Moves(Direction.Diagonal))
             {
@@ -62,84 +57,7 @@ namespace Chess.Classes
             foreach (var item in base.Moves(Direction.Vertical))
             {
                 moves.Add(item);
-            }
-
-            /*
-            // GO LEFT
-            for (int i = _y - 1; i >= 0; i--)
-            {
-                move = new int[1, 2];
-                move[0, 0] = _x;
-                move[0, 1] = i;
-                moves.Add(move);
-            }
-
-            // GO RIGHT
-            for (int i = _y + 1; i< 8; i++)
-            {
-                move = new int[1, 2];
-                move[0, 0] = _x;
-                move[0, 1] = i;
-                moves.Add(move);
-            }
-
-            // GO DOWN
-            for (int i = _x + 1; i < 8; i++)
-            {
-                move = new int[1, 2];
-                move[0, 0] = i;
-                move[0, 1] = _y;
-                moves.Add(move);
-            }
-
-            // GO UP
-            for (int i = _x - 1; i >= 0; i--)
-            {
-                move = new int[1, 2];
-                move[0, 0] = i;
-                move[0, 1] = _y;
-                moves.Add(move);
-            }
-
-            // Calculate how many times we have to go to the right
-            int RightSpace = 7 - _x;
-            int LeftSpace = _x;
-
-            // GO DOWN AND RIGHT
-            for (int i = 1; i <= RightSpace; i++)
-            {
-                move = new int[1, 2];
-                move[0, 0] = _x + i;
-                move[0, 1] = _y + i;
-                moves.Add(move);
-            }
-
-            // GO UP AND Right
-            for (int i = 1; i <= RightSpace; i++)
-            {
-                move = new int[1, 2];
-                move[0, 0] = _x + i;
-                move[0, 1] = _y - i;
-                moves.Add(move);
-            }
-
-            // GO DOWN AND LEFT
-            for (int i = 1; i <= LeftSpace; i++)
-            {
-                move = new int[1, 2];
-                move[0, 0] = _x - i;
-                move[0, 1] = _y + i;
-                moves.Add(move);
-            }
-
-            // GO UP AND LEFT
-            for (int i = 1; i <= LeftSpace; i++)
-            {
-                move = new int[1, 2];
-                move[0, 0] = _x - i;
-                move[0, 1] = _y - i;
-                moves.Add(move);
-            }*/
+            }           
 
             return moves;
         }       
