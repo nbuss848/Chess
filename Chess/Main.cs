@@ -43,7 +43,7 @@ namespace Chess
             Bishop queen = new Bishop("W", 2, 2);
             board[2, 2] = queen;
 
-            Pawn pawn = new Pawn("B", 2, 2);
+            Pawn pawn = new Pawn("B", 4, 4);
             board[4, 4] = pawn;
 
             pawn = new Pawn("B", 1, 1);
@@ -61,8 +61,8 @@ namespace Chess
 
         private void Main_Load(object sender, EventArgs e)
         {
-            Test();
-            return;
+            //Test();
+            //return;
 
             GameBoard.Setup(GameType.Classic);
             // GameBoard.Print();                

@@ -17,6 +17,7 @@ namespace Chess
         private int _y;
         public enum Direction { Horizontal, Vertical, Diagonal, L };
         private List<int[,]> _moves;
+        public Board GameBoard { get; set; }
 
         private string Path = Environment.CurrentDirectory + @"..\..\..\";
 
@@ -52,6 +53,8 @@ namespace Chess
             _image = Path + color + type + ".png";
             this.X = X;
             this.Y = Y;
+            _moves = new List<int[,]>();
+
         }
 
         /// <summary>
@@ -104,14 +107,111 @@ namespace Chess
             throw new System.NotImplementedException();
         }
 
-        public List<int[,]> Moves(Direction moveType)
+        /* public List<int[,]> Moves(Direction moveType)
+         {
+             List<int[,]> moves = new List<int[,]>();
+             int[,] move = new int[1, 2];
+
+             switch (moveType)
+             {
+                 case Direction.Horizontal:                    
+
+                     // GO LEFT
+                     for (int i = Y - 1; i >= 0; i--)
+                     {
+                         move = new int[1, 2];
+                         move[0, 0] = X;
+                         move[0, 1] = i;
+                         moves.Add(move);
+                     }
+
+                     // GO RIGHT
+                     for (int i = Y + 1; i < 8; i++)
+                     {
+                         move = new int[1, 2];
+                         move[0, 0] = X;
+                         move[0, 1] = i;
+                         moves.Add(move);
+                     }
+
+                     break;
+                 case Direction.Vertical:
+                     // GO DOWN
+                     for (int i = X + 1; i < 8; i++)
+                     {
+                         move = new int[1, 2];
+                         move[0, 0] = i;
+                         move[0, 1] = Y;
+                         moves.Add(move);
+                     }
+
+                     // GO UP
+                     for (int i = X - 1; i >= 0; i--)
+                     {
+                         move = new int[1, 2];
+                         move[0, 0] = i;
+                         move[0, 1] = Y;
+                         moves.Add(move);
+                     }
+                     break;
+                 case Direction.Diagonal:
+                     // Calculate how many times we have to go to the right
+                     int RightSpace = 7 - X;
+                     int LeftSpace = X;
+
+                     // GO DOWN AND RIGHT
+                     for (int i = 1; i <= RightSpace; i++)
+                     {
+                         move = new int[1, 2];
+                         move[0, 0] = X + i;
+                         move[0, 1] = Y + i;
+                         moves.Add(move);
+                     }
+
+                     // GO UP AND Right
+                     for (int i = 1; i <= RightSpace; i++)
+                     {
+                         move = new int[1, 2];
+                         move[0, 0] = X + i;
+                         move[0, 1] = Y - i;
+                         moves.Add(move);
+                     }
+
+                     // GO DOWN AND LEFT
+                     for (int i = 1; i <= LeftSpace; i++)
+                     {
+                         move = new int[1, 2];
+                         move[0, 0] = X - i;
+                         move[0, 1] = Y + i;
+                         moves.Add(move);
+                     }
+
+                     // GO UP AND LEFT
+                     for (int i = 1; i <= LeftSpace; i++)
+                     {
+                         move = new int[1, 2];
+                         move[0, 0] = X - i;
+                         move[0, 1] = Y - i;
+                         moves.Add(move);
+                     }
+                     break;
+                 default: // no default
+                     break;
+             }
+
+             return moves;
+         }*/
+
+        public List<int[,]> Moves(Direction moveType)            
         {
+            object[,] board = GameBoard.GetBoard();
+
             List<int[,]> moves = new List<int[,]>();
             int[,] move = new int[1, 2];
 
             switch (moveType)
             {
-                case Direction.Horizontal:                    
+                case Direction.Horizontal:
 
                     // GO LEFT
                     for (int i = Y - 1; i >= 0; i--)
@@ -199,6 +299,7 @@ namespace Chess
             return moves;
         }
 
+
         private bool Something(object v, int i)
         {
             bool lastMove = false;
@@ -212,6 +313,7 @@ namespace Chess
                 if (this.Equals(v))
                 {
                     //continue;
+                    lastMove = true;
                 }
                 else if (this.Color != pieceOnBoard.Color)
                 {                    
@@ -234,7 +336,7 @@ namespace Chess
         {
             object[,] GameBoard = board.GetBoard();
 
-            _moves = new List<int[,]>();
+            //_moves = new List<int[,]>();
             int[,] move = new int[1, 2];
 
             switch (moveType)
@@ -247,7 +349,6 @@ namespace Chess
                         if (GameBoard[X, i] is Piece)
                         {
                             break;
-
                         }
 
                         move = new int[1, 2];
@@ -258,8 +359,7 @@ namespace Chess
 
                     // GO RIGHT
                     for (int i = Y + 1; i < 8; i++)
-                    {
-                        
+                    {                        
                         if (GameBoard[X, i] is Piece) break;
                         move = new int[1, 2];
                         move[0, 0] = X;
@@ -304,30 +404,6 @@ namespace Chess
                         {
                             break;
                         }
-
-                        /*if (GameBoard[X + i, Y + i] is Piece)
-                        {
-                            Piece pieceOnBoard = GameBoard[X + i, Y + i] as Piece;
-
-                            if (this.Equals(GameBoard[X + 1, Y + 1]))
-                            {
-                                //continue;
-                            }
-                            else if (this.Color != pieceOnBoard.Color)
-                            {
-                                //continue;
-                                move = new int[1, 2];
-                                move[0, 0] = X + i;
-                                move[0, 1] = Y + i;
-                                moves.Add(move);
-
-                                break;
-                            }
-                            else
-                            {
-                                
-                            }
-                        }*/
 
                         move = new int[1, 2];
                         move[0, 0] = X + i;
