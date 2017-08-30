@@ -83,6 +83,11 @@ namespace Chess
             }
         }
 
+        public void SetBoard(Board _board)
+        {
+            GameBoard = _board;
+        }
+
         public static Queue<Piece> GetPieces(string Color)
         {
             Queue<Piece> pieces = new Queue<Piece>();
@@ -206,7 +211,7 @@ namespace Chess
         {
             object[,] board = GameBoard.GetBoard();
 
-            List<int[,]> moves = new List<int[,]>();
+            _moves = new List<int[,]>();
             int[,] move = new int[1, 2];
 
             switch (moveType)
@@ -216,19 +221,28 @@ namespace Chess
                     // GO LEFT
                     for (int i = Y - 1; i >= 0; i--)
                     {
+                        if (Something(board[X, i], i))
+                        {
+                            break;
+                        }
                         move = new int[1, 2];
                         move[0, 0] = X;
                         move[0, 1] = i;
-                        moves.Add(move);
+                        _moves.Add(move);
                     }
 
                     // GO RIGHT
                     for (int i = Y + 1; i < 8; i++)
                     {
+                        if (Something(board[X, i], i))
+                        {
+                            break;
+                        }
+
                         move = new int[1, 2];
                         move[0, 0] = X;
                         move[0, 1] = i;
-                        moves.Add(move);
+                        _moves.Add(move);
                     }
 
                     break;
@@ -236,19 +250,27 @@ namespace Chess
                     // GO DOWN
                     for (int i = X + 1; i < 8; i++)
                     {
+                        if (Something(board[i, Y], i))
+                        {
+                            break;
+                        }
                         move = new int[1, 2];
                         move[0, 0] = i;
                         move[0, 1] = Y;
-                        moves.Add(move);
+                        _moves.Add(move);
                     }
 
                     // GO UP
                     for (int i = X - 1; i >= 0; i--)
                     {
+                        if (Something(board[i, Y], i))
+                        {
+                            break;
+                        }
                         move = new int[1, 2];
                         move[0, 0] = i;
                         move[0, 1] = Y;
-                        moves.Add(move);
+                        _moves.Add(move);
                     }
                     break;
                 case Direction.Diagonal:
@@ -259,44 +281,74 @@ namespace Chess
                     // GO DOWN AND RIGHT
                     for (int i = 1; i <= RightSpace; i++)
                     {
+                        if (X + i > 7 || Y + i > 7)
+                        { continue; }
+
+                        if (Something(board[X + i, Y + i], i))
+                        {
+                            break;
+                        }
+
                         move = new int[1, 2];
                         move[0, 0] = X + i;
                         move[0, 1] = Y + i;
-                        moves.Add(move);
+                        _moves.Add(move);
                     }
 
                     // GO UP AND Right
                     for (int i = 1; i <= RightSpace; i++)
                     {
+                        if (X + i > 7 || Y - i < 0)
+                        { continue; }
+
+                        if (Something(board[X + i, Y - i], i))
+                        {
+                            break;
+                        }
+
                         move = new int[1, 2];
                         move[0, 0] = X + i;
                         move[0, 1] = Y - i;
-                        moves.Add(move);
+                        _moves.Add(move);
                     }
 
                     // GO DOWN AND LEFT
                     for (int i = 1; i <= LeftSpace; i++)
                     {
+                        if (X - i < 0 || Y + i > 7)
+                        { continue; }
+
+                        if (Something(board[X - i, Y + i], i))
+                        {
+                            break;
+                        }
                         move = new int[1, 2];
                         move[0, 0] = X - i;
                         move[0, 1] = Y + i;
-                        moves.Add(move);
+                        _moves.Add(move);
                     }
 
                     // GO UP AND LEFT
                     for (int i = 1; i <= LeftSpace; i++)
                     {
+                        if (X - i < 0 || Y - i < 0)
+                        { continue; }
+
+                        if (Something(board[X - i, Y - i], i))
+                        {
+                            break;
+                        }
                         move = new int[1, 2];
                         move[0, 0] = X - i;
                         move[0, 1] = Y - i;
-                        moves.Add(move);
+                        _moves.Add(move);
                     }
                     break;
                 default: // no default
                     break;
             }
 
-            return moves;
+            return _moves;
         }
 
 
@@ -318,8 +370,8 @@ namespace Chess
                 else if (this.Color != pieceOnBoard.Color)
                 {                    
                     move = new int[1, 2];
-                    move[0, 0] = X + i;
-                    move[0, 1] = Y + i;
+                    move[0, 0] = pieceOnBoard.X;
+                    move[0, 1] = pieceOnBoard.Y;
                     _moves.Add(move);
                     lastMove = true;
                 }

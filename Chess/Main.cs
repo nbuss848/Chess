@@ -40,8 +40,10 @@ namespace Chess
         private void Test()
         {
             object[,] board = GameBoard.GetBoard();
-            Bishop queen = new Bishop("W", 2, 2);
+            Queen queen = new Queen("W", 2, 2);
             board[2, 2] = queen;
+
+            queen.GameBoard = GameBoard;
 
             Pawn pawn = new Pawn("B", 4, 4);
             board[4, 4] = pawn;
@@ -49,9 +51,11 @@ namespace Chess
             pawn = new Pawn("B", 1, 1);
             board[1, 1] = pawn;
 
+            Rook rook = new Rook("B", 2, 4);
+            board[2, 4] = rook;
 
-            // List<int[,]> moves = //queen.GetMoves(); queen.Moves(Piece.Direction.Diagonal, GameBoard);
-            List<int[,]> moves = queen.Moves(Piece.Direction.Diagonal, GameBoard);
+            List<int[,]> moves = queen.GetMoves();
+            //List<int[,]> moves = queen.Moves(Piece.Direction.Diagonal, queen.GameBoard);
             Draw();
             DrawCords();
 
@@ -60,11 +64,10 @@ namespace Chess
         }
 
         private void Main_Load(object sender, EventArgs e)
-        {
-            //Test();
-            //return;
+        {            
 
             GameBoard.Setup(GameType.Classic);
+            
             // GameBoard.Print();                
             Draw();
             // only draw cords once
