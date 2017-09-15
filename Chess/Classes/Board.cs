@@ -191,10 +191,10 @@ namespace Chess.Classes
                 }
 
                 // Build Rooks
-                _board[0, 0] = new Rook("W");
-                _board[0, 7] = new Rook("B");
-                _board[7, 7] = new Rook("B");
-                _board[7, 0] = new Rook("W");
+                _board[0, 0] = new Rook("W", 0, 0);
+                _board[0, 7] = new Rook("B", 0, 7);
+                _board[7, 7] = new Rook("B", 7, 7);
+                _board[7, 0] = new Rook("W", 7, 0);
 
                 // Build Knights
                 _board[1, 0] = new Knight("W");
@@ -203,18 +203,18 @@ namespace Chess.Classes
                 _board[6, 7] = new Knight("B");
 
                 // Build Bishops
-                _board[2, 0] = new Bishop("W");
-                _board[5, 0] = new Bishop("W");
-                _board[2, 7] = new Bishop("B");
-                _board[5, 7] = new Bishop("B");
+                _board[2, 0] = new Bishop("W", 2, 0);
+                _board[5, 0] = new Bishop("W", 5, 0);
+                _board[2, 7] = new Bishop("B", 2, 7);
+                _board[5, 7] = new Bishop("B", 5, 7);
 
                 // Build Kings
                 _board[4, 0] = new King("W");
                 _board[4, 7] = new King("B");
 
                 // Build Queens
-                _board[3, 0] = new Queen("W",3,0);
-                _board[3, 7] = new Queen("B",3,7);
+                _board[3, 0] = new Queen("W", 3, 0);
+                _board[3, 7] = new Queen("B", 3, 7);
             }
             else if (GameType.Random == Game)
             {
@@ -231,9 +231,18 @@ namespace Chess.Classes
 
                 Shuffle(ref ranks);
 
-                foreach(int i in ranks)
+                foreach (int i in ranks)
                 {
-                    _board[i, 0] = WhitesPieces.Dequeue();
+                    Piece thePiece = WhitesPieces.Dequeue();
+                    thePiece.X = i;
+                    thePiece.Y = 0;
+
+                    _board[i, 0] = thePiece;
+
+                    thePiece = BlackPieces.Dequeue();
+                    thePiece.X = i;
+                    thePiece.Y = 7;
+
                     _board[i, 7] = BlackPieces.Dequeue();
                 }
             }
@@ -248,11 +257,6 @@ namespace Chess.Classes
         {
             Random rnd = new Random();
             ranks = ranks.OrderBy(x => rnd.Next()).ToArray();
-        }
-
-        public void Propagate(Piece PieceType)
-        {
-
         }
 
         /// <summary>
@@ -306,7 +310,7 @@ namespace Chess.Classes
             }
             else if (sender is PictureBox)
             {
-                PictureBox box = (PictureBox)sender;
+                PictureBox box = sender as PictureBox;
                 x = Convert.ToInt16(box.Name.Split(' ')[0]);
                 y = Convert.ToInt16(box.Name.Split(' ')[1]);
 

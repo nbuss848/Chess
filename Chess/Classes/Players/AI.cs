@@ -17,54 +17,69 @@ namespace Chess.Classes.Players
             _color = Color;
         }
 
-        public void Move()
+        public int[,] Move()
         {
+            int[,] moves = new int[2, 2];
+
             var GameBoard = _board.GetBoard();
             // TODO: pick a piece to move; Based on color
-            Evaluate(GameBoard, _color);
+            moves = Evaluate(GameBoard, _color);
+
+            return moves;
         }
-
       
-
-        private void Evaluate(object[,] gameBoard, string color)
+        private int [,] Evaluate(object[,] gameBoard, string color)
         {
-            foreach(Piece piece in gameBoard.OfType<Piece>())
+            int[,] moveHistory = new int[2, 2];
+
+            foreach (Piece piece in gameBoard.OfType<Piece>())
             {
-                if(piece.Color == color)
+                if (piece.Color == color)
                 {
-                    if (piece.GetType().Name == "Pawn")
+                    // Todo get valid move and then move the piece
+                    List<int[,]> moves = piece.GetMoves();
+
+                    if (moves.Count <= 0)
                     {
-                        // Todo get valid move and then move the piece
-                        Pawn pawn = (Pawn)piece;
-                        List<int[,]> moves = pawn.GetMoves();
-
-
-                        if (moves.Count <= 0)
+                        continue;
+                    }
+                    else
+                    {
+                        foreach (var item in moves)
                         {
-                            continue;
-                        }
-                        {
-                            int[,] cords = moves[0];
-                            if(gameBoard[cords[0, 0], cords[0, 1]] is Piece)
+                            int[,] cords = item;
+                            if (gameBoard[cords[0, 0], cords[0, 1]] is Piece)
                             {
                                 // only valid when pieces are not equal
-                                continue;
+                                Piece destPiece = gameBoard[cords[0, 0], cords[0, 1]] as Piece;
+
+                                if (!piece.Equals(destPiece))
+                                {
+                                    continue;
+                                }
                             }
                             else
                             {
                                 int x = cords[0, 0];
                                 int y = cords[0, 1];
-                                gameBoard[pawn.X, pawn.Y] = null;
+                                gameBoard[piece.X, piece.Y] = null;
                                 gameBoard[x, y] = piece;
-                                pawn.X = x;
-                                pawn.Y = y;
+                             
+                                moveHistory[0, 0] = piece.X;
+                                moveHistory[0, 1] = piece.Y;
+
+                                moveHistory[1, 0] = x;
+                                moveHistory[1, 1] = y;
+
+                                piece.X = x;
+                                piece.Y = y;
+                                return moveHistory;
                             }
                         }
-
-                        break; // only move one piece
                     }
                 }
             }
+            return moveHistory;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Chess.Classes;
+using Chess.Classes.Players;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace Chess
     {
         Board GameBoard = new Board();
         private List<Panel> paneHistory =  new List<Panel>();
+        private AI artificalIntel;
 
         public Main()
         {
@@ -35,27 +37,43 @@ namespace Chess
             }
         }
 
-        private void Main_Load(object sender, EventArgs e)
+        private void Test()
         {
-            object [,] board = GameBoard.GetBoard();
+            object[,] board = GameBoard.GetBoard();
             Queen queen = new Queen("W", 2, 2);
             board[2, 2] = queen;
 
-            List<int[,]> moves = queen.GetMoves();
+            queen.GameBoard = GameBoard;
 
+            Pawn pawn = new Pawn("B", 4, 4);
+            board[4, 4] = pawn;
+
+            pawn = new Pawn("B", 1, 1);
+            board[1, 1] = pawn;
+
+            Rook rook = new Rook("B", 2, 4);
+            board[2, 4] = rook;
+
+            List<int[,]> moves = queen.GetMoves();
+            //List<int[,]> moves = queen.Moves(Piece.Direction.Diagonal, queen.GameBoard);
             Draw();
             DrawCords();
 
             // Visualize Moves
             Visualize(moves);
-           
-            return;
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {            
 
             GameBoard.Setup(GameType.Classic);
+            
             // GameBoard.Print();                
             Draw();
             // only draw cords once
             DrawCords();
+
+            artificalIntel = new AI(GameBoard, "W"); 
         }      
 
         /// <summary>
@@ -101,18 +119,15 @@ namespace Chess
             int x = Convert.ToInt32(cords[0]);
             int y = Convert.ToInt32(cords[1]);
 
-            foreach (Control thePane in this.Controls)
-            {
-                if (thePane is Panel)
-                {
+            foreach (Panel thePane in this.Controls.OfType < Panel>())
+            {              
                     if (thePane.Name == id)
                     {
                         Panel temp = (Panel)thePane;
                         paneHistory.Add(temp);
 
                         break;
-                    }
-                }
+                    }               
             }            
 
             if(paneHistory.Count == 2) // % 2
@@ -186,5 +201,38 @@ namespace Chess
 
         }
         #endregion
+
+        private void btMoveAI_Click(object sender, EventArgs e)
+        {
+            int[,] result = artificalIntel.Move();
+            paneHistory.Clear();
+            // var query = this.Controls.OfType<Panel>().Where(x => x.Name == String.Format("{0} {1}", result[0, 0], result[0, 1])).Select(x => x).Distinct();
+            paneHistory.Add(FindPanel(result[0, 0], result[0, 1]));
+            paneHistory.Add(FindPanel(result[1, 0], result[1, 1]));
+
+            UpdateBoard(result[1, 0], result[1, 1]);
+            paneHistory.Clear();
+
+            //GameBoard.GetSquareControl(result[0, 0], result[0, 1]);
+            //GameBoard.GetSquareControl(result[1, 0], result[1, 1]);
+            // refresh the board somehow
+            // GameBoard.GetSquareControl()
+        }
+
+        private Panel FindPanel(int x, int y)
+        {
+            Panel pane = new Panel();
+
+            foreach (var item in this.Controls.OfType<Panel>())
+            {
+                if (item.Name == String.Format("{0} {1}", x, y))
+                {
+                    pane = item;
+                    break;
+                }
+            }
+
+            return pane;
+        }
     }
 }
